@@ -1,0 +1,16 @@
+# Ignore artifacts and build directories
+node_modules
+.cache
+build
+out
+dist
+
+# Ignore version control files
+.git
+.svn
+.hg
+
+# Ignore configuration files
+*.config.js
+.eslintrc.js
+babel.config.js
