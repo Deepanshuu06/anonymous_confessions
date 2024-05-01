@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { NextRequest as NextRequestType } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 // This function can be marked `async` if using `await` inside
@@ -7,19 +6,25 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const url = request.nextUrl;
 
-  if (token && (
-    url.pathname.startsWith('/sign-in') || 
-    url.pathname.startsWith('/sign-up')  ||
-    url.pathname.startsWith('/verify')  ||
-    url.pathname.startsWith('/') 
-  )) {
+  // Check if the user is already authenticated and attempting to access
+  // sign-in, sign-up, or verify page; if so, redirect to dashboard
+  if (token && (url.pathname.startsWith('/sign-in') || 
+                url.pathname.startsWith('/sign-up') ||  
+                url.pathname.startsWith('/verify'))) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
-
   }
-  return NextResponse.redirect(new URL('/home', request.url));
+
+  // Check if the user is not authenticated and attempting to access
+  // the dashboard page; if so, redirect to home
+  if (!token && url.pathname.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/home', request.url));
+  }
+
+  // For all other cases, proceed without redirection
+  return;
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/sign-in', '/sign-up', '/', '/dashboard/:path*', '/verify/:path*'],
+  matcher: ['/', '/sign-in', '/sign-up', '/dashboard/:path*', '/verify/:path*']
 };
