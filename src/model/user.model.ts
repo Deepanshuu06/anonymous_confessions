@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface Message extends Document {
     content: string;
@@ -79,7 +79,7 @@ const UserSchema: Schema<User> = new Schema({
     },
 });
 
-export const UserModel = mongoose.models.User as mongoose.Model<User> || mongoose.model<User>("User", UserSchema)
+// Check if UserModel already exists before defining it
+export const UserModel: Model<User> = mongoose.models.User || mongoose.model<User>("User", UserSchema);
 
-
-export const MessageModel = mongoose.model<Message>('Message', MessageSchema);
+export const MessageModel = mongoose.models.Message as Model<Message> || mongoose.model<Message>('Message', MessageSchema);
