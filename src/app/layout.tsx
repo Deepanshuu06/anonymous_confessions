@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import AuthProvider from "@/context/authProvider";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import AuthProvider from '@/context/authProvider';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Anonymous Confessions",
-  description: "A safe space for sharing anonymous confessions and secrets",
+  title: 'Anonymous Confessions',
+  description: 'A safe space for sharing anonymous confessions and secrets',
 };
 
 export default function RootLayout({
@@ -17,10 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-<AuthProvider>
-
-      <body className={inter.className}>{children}</body>
-</AuthProvider>
+      <AuthProvider>
+        <body className={inter.className}>{children}</body>
+      </AuthProvider>
     </html>
   );
 }
