@@ -11,11 +11,7 @@ export async function POST (request: NextRequest) {
     const existingUserVerifiedUsername = await UserModel.findOne({
       username,
       isVerified: true,
-    });
-console.log(dbConnect);
-
-    console.log(username);
-    
+    });    
     if (existingUserVerifiedUsername) {
       return Response.json(
         {
