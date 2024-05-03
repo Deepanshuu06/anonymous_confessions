@@ -2,8 +2,9 @@ import dbConnect from '@/lib/dbConnect';
 import { UserModel } from '@/model/User.model';
 import bcrypt from 'bcryptjs';
 import { sendVerificationEmail } from '@/utils/sendVerificationEmail';
+import { NextRequest } from 'next/server';
 
-export async function POST(request: Request) {
+export async function POST (request: NextRequest) {
   await dbConnect();
   try {
     const { username, email, password, name } = await request.json();
@@ -11,7 +12,10 @@ export async function POST(request: Request) {
       username,
       isVerified: true,
     });
+console.log(dbConnect);
 
+    console.log(username);
+    
     if (existingUserVerifiedUsername) {
       return Response.json(
         {
