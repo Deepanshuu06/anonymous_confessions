@@ -11,6 +11,9 @@
   "dependencies": {
     "ai": "^3.1.1",
     "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.378.0",
     "mongodb": "^6.6.0",
     "mongoose": "^8.3.2",
     "next": "14.2.3",
@@ -21,6 +24,8 @@
     "react-dom": "^18",
     "react-email": "^2.1.1",
     "resend": "^3.2.0",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.4"
   },
   "devDependencies": {
