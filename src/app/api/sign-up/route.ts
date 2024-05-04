@@ -4,19 +4,20 @@ import bcrypt from 'bcryptjs';
 import { sendVerificationEmail } from '@/utils/sendVerificationEmail';
 import { NextRequest } from 'next/server';
 
-export async function POST (request: NextRequest) {
+export async function POST(request: NextRequest) {
   await dbConnect();
   try {
     const { username, email, password, name } = await request.json();
     const existingUserVerifiedUsername = await UserModel.findOne({
       username,
       isVerified: true,
-    });    
+    });
+
     if (existingUserVerifiedUsername) {
       return Response.json(
         {
           success: false,
-          message: 'Username is already taken',
+          message: 'username is already taken',
         },
         {
           status: 400,
