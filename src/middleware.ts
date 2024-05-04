@@ -14,11 +14,19 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
+  // Check if the user is authenticated and attempting to access the dashboard page
+  // If so, allow access without redirection
+  if (token && url.pathname.startsWith('/dashboard')) {
+    return;
+  }
+
   // Check if the user is not authenticated and attempting to access
   // the dashboard page; if so, redirect to home
-  if (!token && url.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/home', request.url));
-  }
+
+  
+  // if (!token && url.pathname.startsWith('/dashboard')) {
+  //   return NextResponse.redirect(new URL('/home', request.url));
+  // }
 
   // For all other cases, proceed without redirection
   return;
@@ -26,5 +34,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/', '/sign-in', '/sign-up', '/dashboard/:path*', '/verify/:path*']
+  matcher: ['/', '/sign-in', '/sign-up', '/dashboard', '/verify/:path*']
 };

@@ -1,4 +1,5 @@
-'use client';
+'use clie'
+
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -13,7 +14,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import Link from 'next/link';
-import { useDebounceCallback } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { signUpSchema } from '@/Schemas/signUpSchema';
@@ -28,7 +29,7 @@ const Page = () => {
   const [usernameMessage, setUsernameMessage] = useState('');
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const debounce = useDebounceCallback(setUsername, 500);
+  const debouncedUsername = useDebounceValue(username, 500);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -39,19 +40,20 @@ const Page = () => {
       username: '',
       email: '',
       password: '',
-      name:''
     },
   });
 
   useEffect(() => {
     const checkUsernameUnique = async () => {
-      if (username.length > 0) {
+      if (debouncedUsername.length > 0) {
         setIsCheckingUsername(true);
         setUsernameMessage('');
         try {
-          const response = await axios.get(`/api/check-username-unique?username=${username}`);
+          const response = await axios.get(
+            `/api/check-username-unique?username=${debouncedUsername}`,
+          );
           setUsernameMessage(response.data.message);
-          console.log(response.data.message);
+          console.log(response);
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
           setUsernameMessage(axiosError.response?.data.message ?? 'Error checking username');
@@ -61,7 +63,7 @@ const Page = () => {
       }
     };
     checkUsernameUnique();
-  }, [username]);
+  }, [debouncedUsername]);
 
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true);
@@ -88,12 +90,10 @@ const Page = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-md w-full">
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-3xl w-full">
         <div className="p-6 text-center">
-          <h1 className="text-4xl font-bold mb-4">Join Anonymous Confession</h1>
-          <p className="text-gray-600 mb-4">
-            Share your thoughts anonymously. Sign up to start confessing.
-          </p>
+          <h1 className="text-3xl font-bold mb-4">Anonymous Confession</h1>
+          <p className="text-gray-600 mb-4">Share your thoughts anonymously. Sign up to start confessing.</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 space-y-8">
@@ -109,29 +109,9 @@ const Page = () => {
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
-                        debounce(e.target.value);
+                        setUsername(e.target.value);
                       }}
                     />
-                  </FormControl>
-                  {isCheckingUsername && <Loader2 className="animate-spin" />}
-                  <p
-                    className={`text-sm ${usernameMessage === 'Username is available' ? 'text-green-500' : 'text-red-600'}`}
-                  >
-                    {usernameMessage}
-                  </p>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="your name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -167,22 +147,15 @@ const Page = () => {
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="" /> Please wait
+                    <Loader2 className=''/> Please wait
                   </>
-                ) : (
-                  'Sign Up'
-                )}
+                ) : 'Sign Up'}
               </Button>
             </div>
           </form>
         </Form>
         <div className="p-6 text-center text-gray-600">
-          <p>
-            Already a member?{' '}
-            <Link href={'/sign-in'} className="text-blue-500">
-              Sign in
-            </Link>
-          </p>
+          <p>Already a member? <Link href={'/sign-in'}>Sign in</Link></p>
         </div>
       </div>
     </div>
