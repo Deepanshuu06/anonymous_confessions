@@ -1,10 +1,11 @@
-'use client';
+
+'use client'
+
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,9 +14,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import Link from 'next/link';
-import { useDebounceCallback } from 'usehooks-ts';
 import { useToast } from '@/components/ui/use-toast';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
 import { signUpSchema } from '@/Schemas/signUpSchema';
 import axios, { AxiosError } from 'axios';
 import { ApiResponse } from '@/types/ApiResponse';
@@ -28,7 +28,6 @@ const Page = () => {
   const [usernameMessage, setUsernameMessage] = useState('');
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const debounce = useDebounceCallback(setUsername, 500);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -39,12 +38,12 @@ const Page = () => {
       username: '',
       email: '',
       password: '',
-      name:''
+      name: ''
     },
   });
 
   useEffect(() => {
-    const checkUsernameUnique = async () => {
+    const timer = setTimeout(async () => {
       if (username.length > 0) {
         setIsCheckingUsername(true);
         setUsernameMessage('');
@@ -59,8 +58,8 @@ const Page = () => {
           setIsCheckingUsername(false);
         }
       }
-    };
-    checkUsernameUnique();
+    }, 500);
+    return () => clearTimeout(timer);
   }, [username]);
 
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
@@ -109,7 +108,7 @@ const Page = () => {
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
-                        debounce(e.target.value);
+                        setUsername(e.target.value);
                       }}
                     />
                   </FormControl>
