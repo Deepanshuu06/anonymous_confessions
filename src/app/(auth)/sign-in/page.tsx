@@ -30,7 +30,7 @@ const Page = () => {
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      identifier:'',
+      identifier: '',
       password: '',
     },
   });

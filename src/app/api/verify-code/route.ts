@@ -37,8 +37,8 @@ export async function POST(request: Request) {
           status: 200,
         },
       );
-}else if(!isCodeNotExpired){
-    return Response.json(
+    } else if (!isCodeNotExpired) {
+      return Response.json(
         {
           success: false,
           message: 'varification code is expired',
@@ -47,8 +47,8 @@ export async function POST(request: Request) {
           status: 400,
         },
       );
-}else if (!isCodeValid){
-    return Response.json(
+    } else if (!isCodeValid) {
+      return Response.json(
         {
           success: false,
           message: 'varification code is invalid',
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
           status: 400,
         },
       );
-}
+    }
   } catch (error) {
     console.error('Error verifying user', error);
     return Response.json(

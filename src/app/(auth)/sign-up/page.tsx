@@ -1,5 +1,4 @@
-
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -38,7 +37,7 @@ const Page = () => {
       username: '',
       email: '',
       password: '',
-      name: ''
+      name: '',
     },
   });
 
