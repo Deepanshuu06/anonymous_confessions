@@ -28,13 +28,13 @@ const Page = () => {
   const { register, watch, setValue } = form;
   const acceptMessages = watch('acceptMessages');
 
-  console.log(acceptMessages);
+
   
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>('/api/accept-message');
-      await setValue('acceptMessages', response.data.isAcceptingMessage);
+       setValue('acceptMessages', response.data.isAcceptingMessages);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
@@ -53,6 +53,7 @@ const Page = () => {
       setIsSwitchLoading(false);
       try {
         const response = await axios.get<ApiResponse>('/api/get-messages');
+        
         setMessages(response.data.messages || []);
         if (refresh) {
           toast({
