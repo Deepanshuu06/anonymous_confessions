@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Card,
   CardContent,
@@ -26,26 +24,35 @@ import { useToast } from './ui/use-toast';
 import axios from 'axios';
 import { ApiResponse } from '@/types/ApiResponse';
 
-type messageCardProp = {
+type MessageCardProps = {
   message: Message;
   onMessageDelete: (messageId: string) => void;
 };
 
-const messageCard = ({ message, onMessageDelete }: messageCardProp) => {
-  
+const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
   const toast = useToast();
+
   const handleDeleteConfirm = async () => {
-    const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`);
-    toast({
-      title: response.data.message,
-    });
-    onMessageDelete(message._id);
+    try {
+      const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`);
+      toast({
+        title: response.data.message,
+      });
+      onMessageDelete(message._id);
+    } catch (error) {
+      console.error('Error deleting message:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to delete message',
+        variant: 'destructive',
+      });
+    }
   };
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-
+        <CardTitle>{message.content}</CardTitle>
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button variant="destructive">
@@ -54,24 +61,22 @@ const messageCard = ({ message, onMessageDelete }: messageCardProp) => {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
               <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your account and remove
-                your data from our servers.
+                This action cannot be undone. Are you sure you want to delete this message?
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDeleteConfirm}>Continue</AlertDialogAction>
+              <AlertDialogAction onClick={handleDeleteConfirm}>Delete</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-
-        <CardDescription>Card Description</CardDescription>
+        <CardDescription>{message.description}</CardDescription>
       </CardHeader>
       <CardContent></CardContent>
     </Card>
   );
 };
 
-export default messageCard;
+export default MessageCard;

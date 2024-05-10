@@ -28,13 +28,11 @@ const Page = () => {
   const { register, watch, setValue } = form;
   const acceptMessages = watch('acceptMessages');
 
-
-  
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>('/api/accept-message');
-       setValue('acceptMessages', response.data.isAcceptingMessages);
+      setValue('acceptMessages', response.data.isAcceptingMessages);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
@@ -53,8 +51,8 @@ const Page = () => {
       setIsSwitchLoading(false);
       try {
         const response = await axios.get<ApiResponse>('/api/get-messages');
-        
-        setMessages(response.data.messages || []);
+          setMessages(response.data.messages || []);
+        console.log(messages);
         if (refresh) {
           toast({
             title: 'Refreshed Messages',
@@ -80,7 +78,7 @@ const Page = () => {
     if (!session || !session.user) return;
     fetchAcceptMessage();
     fetchMessages();
-  }, [session, fetchMessages, fetchAcceptMessage]);
+  }, [session, fetchMessages, fetchAcceptMessage , messages]);
 
   const handleSwitchChange = async () => {
     try {
@@ -147,15 +145,13 @@ const Page = () => {
       </div>
 
       <div className="mb-4">
-      <Switch
+        <Switch
           {...register('acceptMessages')}
           checked={acceptMessages}
           onCheckedChange={handleSwitchChange}
           disabled={isSwitchLoading}
         />
-        <span className="ml-2">
-          Accept Messages: {acceptMessages ? 'On' : 'Off'}
-        </span>
+        <span className="ml-2">Accept Messages: {acceptMessages ? 'On' : 'Off'}</span>
       </div>
       <Separator />
 
