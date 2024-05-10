@@ -1,12 +1,12 @@
-'use client'
+'use client';
 import { acceptMessageSchema } from '@/Schemas/acceptMessageSchema';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { Message } from '@/model/User.model';
 import { ApiResponse } from '@/types/ApiResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Separator } from '@radix-ui/react-separator';
-import { Switch } from '@radix-ui/react-switch';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
 import axios, { AxiosError } from 'axios';
 import { Loader2, RefreshCcw } from 'lucide-react';
 import { useSession } from 'next-auth/react';
@@ -28,11 +28,13 @@ const Page = () => {
   const { register, watch, setValue } = form;
   const acceptMessages = watch('acceptMessages');
 
+  console.log(acceptMessages);
+  
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>('/api/accept-message');
-      setValue('acceptMessages', response.data.isAcceptingMessage);
+      await setValue('acceptMessages', response.data.isAcceptingMessage);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
@@ -45,35 +47,38 @@ const Page = () => {
     }
   }, [setValue, toast]);
 
-  const fetchMessages = useCallback(async (refresh = false) => {
-    setIsLoading(true);
-    setIsSwitchLoading(false);
-    try {
-      const response = await axios.get<ApiResponse>('/api/get-messages');
-      setMessages(response.data.messages || []);
-      if (refresh) {
-        toast({
-          title: 'Refreshed Messages',
-          description: 'Showing Latest Messages',
-        });
-      }
-    } catch (error) {
-      const axiosError = error as AxiosError<ApiResponse>;
-      toast({
-        title: 'Error',
-        description: axiosError.response?.data.message || 'Failed to fetch message setting',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsLoading(false);
+  const fetchMessages = useCallback(
+    async (refresh = false) => {
+      setIsLoading(true);
       setIsSwitchLoading(false);
-    }
-  }, [toast]);
+      try {
+        const response = await axios.get<ApiResponse>('/api/get-messages');
+        setMessages(response.data.messages || []);
+        if (refresh) {
+          toast({
+            title: 'Refreshed Messages',
+            description: 'Showing Latest Messages',
+          });
+        }
+      } catch (error) {
+        const axiosError = error as AxiosError<ApiResponse>;
+        toast({
+          title: 'Error',
+          description: axiosError.response?.data.message || 'Failed to fetch message setting',
+          variant: 'destructive',
+        });
+      } finally {
+        setIsLoading(false);
+        setIsSwitchLoading(false);
+      }
+    },
+    [toast],
+  );
 
   useEffect(() => {
     if (!session || !session.user) return;
-    fetchMessages();
     fetchAcceptMessage();
+    fetchMessages();
   }, [session, fetchMessages, fetchAcceptMessage]);
 
   const handleSwitchChange = async () => {
@@ -84,7 +89,7 @@ const Page = () => {
       setValue('acceptMessages', !acceptMessages);
       toast({
         title: response.data.message,
-        variant: 'destructive',
+        variant: 'default',
       });
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
@@ -95,15 +100,33 @@ const Page = () => {
       });
     }
   };
+
+  const handleCopyLink = () => {
+    navigator.clipboard
+      .writeText(profileUrl)
+      .then(() => {
+        toast({
+          title: 'Link copied!',
+          variant: 'default',
+        });
+      })
+      .catch(() => {
+        toast({
+          title: 'Error',
+          description: 'Failed to copy link.',
+          variant: 'destructive',
+        });
+      });
+  };
+
   const handleDeleteMessage = (messageId: string) => {
     setMessages(messages.filter((message) => message._id !== messageId));
   };
 
+  const username = session?.user?.username || '';
 
-  const username = session?.user as User
-
-  const baseURL = `${window.location.protocol}//${window.location.host}`
-  const profileUrl =  `${baseURL}/u/${username}`
+  const baseURL = `${window.location.protocol}//${window.location.host}`;
+  const profileUrl = `${baseURL}/u/${username}`;
 
   return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
@@ -118,12 +141,12 @@ const Page = () => {
             disabled
             className="input input-bordered w-full p-2 mr-2"
           />
-          <Button onClick={() => {}}>Copy</Button> {/* Placeholder onClick function */}
+          <Button onClick={handleCopyLink}>Copy</Button> {/* Placeholder onClick function */}
         </div>
       </div>
 
       <div className="mb-4">
-        <Switch
+      <Switch
           {...register('acceptMessages')}
           checked={acceptMessages}
           onCheckedChange={handleSwitchChange}

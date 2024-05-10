@@ -1,19 +1,34 @@
 [
-    {
-      "title": "Welcome to our website!",
-      "message": "We are excited to have you here. Explore our features and services to see how we can help you."
-    },
-    {
-      "title": "Stay connected with us",
-      "message": "Follow us on social media for the latest updates, news, and special offers."
-    },
-    {
-      "title": "Join our community",
-      "message": "Become a member of our community to engage with other users, share experiences, and get support."
-    },
-    {
-      "title": "Get started now",
-      "message": "Sign up for a free account today and start enjoying all the benefits our platform has to offer."
-    }
-  ]
-  
+  {
+    "title": "Welcome to our website!",
+    "message": "We are excited to have you here. Explore our features and services to see how we can help you."
+  },
+  {
+    "title": "Stay connected with us",
+    "message": "Follow us on social media for the latest updates, news, and special offers."
+  },
+  {
+    "title": "Join our community",
+    "message": "Become a member of our community to engage with other users, share experiences, and get support."
+  },
+  {
+    "title": "Get started now",
+    "message": "Sign up for a free account today and start enjoying all the benefits our platform has to offer."
+  },
+  {
+    "title": "You mean everything to me",
+    "message": "Your smile brightens my day, and your presence fills my heart with joy. I am grateful for you every moment."
+  },
+  {
+    "title": "You're my inspiration",
+    "message": "Your passion, determination, and kindness inspire me to be a better person every day. I am so lucky to have you in my life."
+  },
+  {
+    "title": "I cherish every moment with you",
+    "message": "From the laughter we share to the quiet moments we spend together, every moment with you is precious to me. I love you more than words can express."
+  },
+  {
+    "title": "Thank you for being you",
+    "message": "Your love, understanding, and support mean the world to me. I am grateful for your presence in my life, now and always."
+  }
+]

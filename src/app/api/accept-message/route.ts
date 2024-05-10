@@ -9,11 +9,11 @@ export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
   if (!session || !session.user) {
-    return Response.json(
-      {
+    return new Response(
+      JSON.stringify({
         success: false,
         message: 'Not Authenticated',
-      },
+      }),
       {
         status: 401,
       },
@@ -35,22 +35,22 @@ export async function POST(request: Request) {
     );
 
     if (!updatedUser) {
-      return Response.json(
-        {
+      return new Response(
+        JSON.stringify({
           success: false,
           message: 'Failed to update user status message to accept message',
-        },
+        }),
         {
           status: 400,
         },
       );
     }
-    return Response.json(
-      {
+    return new Response(
+      JSON.stringify({
         success: true,
         message: 'message acceptance status updated successfully',
         updatedUser,
-      },
+      }),
       {
         status: 200,
       },
@@ -58,11 +58,11 @@ export async function POST(request: Request) {
   } catch (error) {
     console.log('Failed to update user status message to accept message');
 
-    return Response.json(
-      {
+    return new Response(
+      JSON.stringify({
         success: false,
         message: 'Failed to update user status message to accept message',
-      },
+      }),
       {
         status: 500,
       },
@@ -75,11 +75,11 @@ export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
   if (!session || !session.user) {
-    return Response.json(
-      {
+    return new Response(
+      JSON.stringify({
         success: false,
         message: 'Not Authenticated',
-      },
+      }),
       {
         status: 401,
       },
@@ -92,21 +92,21 @@ export async function GET(request: Request) {
     const foundUser = await UserModel.findById(userID);
 
     if (!foundUser) {
-      return Response.json(
-        {
+      return new Response(
+        JSON.stringify({
           success: false,
           message: 'User Not Found',
-        },
+        }),
         {
           status: 404,
         },
       );
     }
-    return Response.json(
-      {
+    return new Response(
+      JSON.stringify({
         success: true,
         isAcceptingMessages: foundUser.isAcceptingMessage,
-      },
+      }),
       {
         status: 200,
       },
@@ -114,11 +114,11 @@ export async function GET(request: Request) {
   } catch (error) {
     console.log('failed to get the user message acceptance status');
 
-    return Response.json(
-      {
+    return new Response(
+      JSON.stringify({
         success: false,
         message: 'failed to get the user message acceptance status',
-      },
+      }),
       {
         status: 500,
       },
