@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import dbConnect from '@/lib/dbConnect';
 
 import GoogleProvider from 'next-auth/providers/google';
-import { UserModel } from '@/model/user.model';
+import { UserModel } from '@/model/usermodel';
 
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
