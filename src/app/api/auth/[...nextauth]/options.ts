@@ -3,6 +3,9 @@ import bcrypt from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import dbConnect from '@/lib/dbConnect';
 import { UserModel } from '@/model/User.model';
+import GoogleProvider from 'next-auth/providers/google';
+
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -59,6 +62,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+
   pages: {
     signIn: '/sign-in',
   },

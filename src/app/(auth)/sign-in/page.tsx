@@ -91,10 +91,13 @@ const Page = () => {
               )}
             />
             <div className="text-center">
-              <Button type="submit">Signin</Button>
+              <Button type="submit">Sign In</Button>
             </div>
           </form>
         </Form>
+        <div>
+          <Button onClick={() => signIn('google')}>login with google</Button>
+        </div>
         <div className="p-6 text-center text-gray-600">
           <p>
             Already a member?{' '}

@@ -51,7 +51,7 @@ const Page = () => {
       setIsSwitchLoading(false);
       try {
         const response = await axios.get<ApiResponse>('/api/get-messages');
-          setMessages(response.data.messages || []);
+        setMessages(response.data.messages || []);
         console.log(messages);
         if (refresh) {
           toast({
@@ -78,7 +78,7 @@ const Page = () => {
     if (!session || !session.user) return;
     fetchAcceptMessage();
     fetchMessages();
-  }, [session, fetchMessages, fetchAcceptMessage , messages]);
+  }, [session, fetchMessages, fetchAcceptMessage]);
 
   const handleSwitchChange = async () => {
     try {
