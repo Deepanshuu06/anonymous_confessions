@@ -2,7 +2,7 @@
 import { acceptMessageSchema } from '@/Schemas/acceptMessageSchema';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { Message } from '@/model/User.model';
+import { Message } from '@/model/user.model';
 import { ApiResponse } from '@/types/ApiResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Separator } from '@/components/ui/separator';

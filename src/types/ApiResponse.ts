@@ -1,4 +1,4 @@
-import { Message } from '@/model/User.model';
+import { Message } from '@/model/user.model';
 
 export interface ApiResponse {
   success: boolean;

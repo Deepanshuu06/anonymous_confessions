@@ -2,8 +2,10 @@ import { NextAuthOptions } from 'next-auth';
 import bcrypt from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import dbConnect from '@/lib/dbConnect';
-import { UserModel } from '@/model/User.model';
+
 import GoogleProvider from 'next-auth/providers/google';
+import { UserModel } from '@/model/user.model';
+
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
