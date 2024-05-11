@@ -23,6 +23,7 @@ import { X } from 'lucide-react';
 import { toast, useToast } from './ui/use-toast';
 import axios from 'axios';
 import { ApiResponse } from '@/types/ApiResponse';
+import { Message } from '@/model/usermodel'; // Assuming Message is exported from usermodel
 
 type MessageCardProps = {
   message: Message;
@@ -31,15 +32,17 @@ type MessageCardProps = {
 
 const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
 
-
   const handleDeleteConfirm = async () => {
     try {
+      if (!message._id) {
+        throw new Error('Message ID is undefined');
+      }
+
       const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`);
       
       toast({
         title: response.data.message,
       });
-      
 
       onMessageDelete(message._id);
     } catch (error) {
@@ -75,9 +78,10 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        <CardDescription>{message.description}</CardDescription>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent>
+
+      </CardContent>
     </Card>
   );
 };
