@@ -76,11 +76,6 @@ const Page = () => {
 
   useEffect(() => {
     if (!session || !session.user) return;
-
-    if (typeof window !== 'undefined') {
-      // Code that uses window or browser APIs
-      window.scrollTo(0, 0);
-    }
     fetchAcceptMessage();
     fetchMessages();
 
