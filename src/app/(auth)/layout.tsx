@@ -1,4 +1,6 @@
 import Navbar from "@/components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
+
 
 export const metadata = {
   title: 'Next.js',
@@ -8,7 +10,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>{children}
+      <Toaster/>
+      </body>
     </html>
   );
 }
