@@ -1,3 +1,10 @@
+// package.json
 {
-  "extends": "next/core-web-vitals"
+  "eslintConfig": {
+    "extends": "next/core-web-vitals",
+    "rules": {
+      // Add or modify rules here
+      "rule-name-to-disable": "off"
+    }
+  }
 }
