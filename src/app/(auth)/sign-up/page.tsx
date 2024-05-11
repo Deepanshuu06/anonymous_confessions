@@ -181,7 +181,11 @@ const Page = () => {
               Sign in
             </Link>
           </p>
+          <Link href={'/'} className="text-blue-500">
+             <Button>Back to Home</Button>
+            </Link>
         </div>
+        
       </div>
     </div>
   );

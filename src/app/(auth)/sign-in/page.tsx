@@ -96,7 +96,7 @@ const Page = () => {
           </form>
         </Form>
         <div>
-          <Button onClick={() => signIn('google')}>login with google</Button>
+         
         </div>
         <div className="p-6 text-center text-gray-600">
           <p>
@@ -105,6 +105,9 @@ const Page = () => {
               Sign up
             </Link>
           </p>
+          <Link href={'/'} className="text-blue-500">
+             <Button>Back to Home</Button>
+            </Link>
         </div>
       </div>
     </div>

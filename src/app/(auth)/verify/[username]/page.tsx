@@ -36,6 +36,8 @@ const Page = () => {
         code: data.code,
       });
 
+      console.log(response);
+      
       toast({
         title: 'Success',
         description: response.data.message,
