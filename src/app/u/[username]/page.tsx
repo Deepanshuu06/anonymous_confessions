@@ -1,29 +1,20 @@
-'use client'
-
-import React, { useState } from 'react';
+'use client';import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { CardHeader, CardContent, Card } from '@/components/ui/card';
-import { useCompletion } from 'ai/react'; // This import might need to be adjusted
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/use-toast';
 import * as z from 'zod';
 import { ApiResponse } from '@/types/ApiResponse';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { messageSchema } from '@/Schemas/messageSchema';
+import { useParams } from 'next/navigation'; // Importing useParams from next/router
+
+type Params = {
+  username: string;
+};
 
 const specialChar = '||';
 
@@ -35,55 +26,41 @@ const initialMessageString =
   "What's your favorite movie?||Do you have any pets?||What's your dream job?";
 
 export default function SendMessage() {
-  const params = useParams<{ username: string }>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [messageContent, setMessageContent] = useState('');
+
+  const params = useParams<Params>();
   const username = params.username;
 
-  
-  const {
-    complete,
-    completion,
-    isLoading: isSuggestLoading,
-    error,
-  } = useCompletion({
-    api: '/api/suggest-messages',
-    initialCompletion: initialMessageString,
-  });
-
-  const form = useForm<z.infer<typeof messageSchema>>({
-    resolver: zodResolver(messageSchema),
-  });
-
-  const messageContent = form.watch('content');
+  const [completion, setCompletion] = useState(initialMessageString);
+  const [isSuggestLoading, setIsSuggestLoading] = useState(false);
+  const [error, setError] = useState<AxiosError<ApiResponse, any> | null>(null); // Define explicit type for error state variable
 
   const handleMessageClick = (message: string) => {
-    form.setValue('content', message);
+    setMessageContent(message);
   };
 
-  const [isLoading, setIsLoading] = useState(false);
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent default form submission
+    if (isLoading) return;
 
-  const onSubmit = async (data: z.infer<typeof messageSchema>) => {
-    console.log("Form submitted");
-    
-    if (isLoading) return; // Prevent multiple submissions
-    
     setIsLoading(true);
     try {
       const response = await axios.post<ApiResponse>('/api/send-message', {
-        ...data,
+        content: messageContent,
         username,
       });
-
+      console.log('Form submitted');
       toast({
         title: response.data.message,
         variant: 'default',
       });
-      form.reset({ ...form.getValues(), content: '' });
+      setMessageContent('');
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
         title: 'Error',
-        description:
-          axiosError.response?.data.message ?? 'Failed to send message',
+        description: axiosError.response?.data.message ?? 'Failed to send message',
         variant: 'destructive',
       });
     } finally {
@@ -93,59 +70,51 @@ export default function SendMessage() {
 
   const fetchSuggestedMessages = async () => {
     try {
-      complete('');
+      setIsSuggestLoading(true);
+      const response = await axios.get('/api/suggest-messages');
+      setCompletion(response.data);
     } catch (error) {
       console.error('Error fetching messages:', error);
-      // Handle error appropriately
+      setError(error as AxiosError<ApiResponse, any>);
+    } finally {
+      setIsSuggestLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
-      <h1 className="text-4xl font-bold mb-6 text-center">
-        Public Profile Link
-      </h1>
-      <Form {...form}>
-
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Send Anonymous Message to @{username}</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Write your anonymous message here"
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="flex justify-center">
-          <Button type="submit" disabled={isLoading || !messageContent}>
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Please wait
-              </>
-            ) : (
-              "Send It"
-            )}
-          </Button>
+      <h1 className="text-4xl font-bold mb-6 text-center">Public Profile Link</h1>
+      <form onSubmit={onSubmit} className="space-y-6">
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <label className="block">
+              Send Anonymous Message to @{username}
+              <Textarea
+                value={messageContent}
+                onChange={(e) => setMessageContent(e.target.value)}
+                placeholder="Write your anonymous message here"
+                className="resize-none"
+              />
+            </label>
+          </div>
+          <div className="flex justify-center">
+            <Button type="submit" disabled={isLoading || !messageContent}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </>
+              ) : (
+                'Send It'
+              )}
+            </Button>
+          </div>
         </div>
       </form>
-      </Form>
+
       <div className="space-y-4 my-8">
         <div className="space-y-2">
-          <Button
-            onClick={fetchSuggestedMessages}
-            className="my-4"
-            disabled={isSuggestLoading}
-          >
+          <Button onClick={fetchSuggestedMessages} className="my-4" disabled={isSuggestLoading}>
             Suggest Messages
           </Button>
           <p>Click on any message below to select it.</p>

@@ -13,7 +13,7 @@ import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import MessageCard from '@/components/messageCard';
-import { User } from 'next-auth';
+
 
 const Page = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -80,6 +80,10 @@ const Page = () => {
     fetchMessages();
   }, [session, fetchMessages, fetchAcceptMessage]);
 
+  useEffect(()=>{
+fetchMessages()
+  },[])
+
   const handleSwitchChange = async () => {
     try {
       const response = await axios.post<ApiResponse>('/api/accept-message', {
@@ -118,9 +122,10 @@ const Page = () => {
       });
   };
 
-  const handleDeleteMessage = (messageId: string) => {
-    setMessages(messages.filter((message) => message._id !== messageId));
-  };
+  const handleDeleteMessage = useCallback((messageId: string) => {
+    const updatedMessages = messages.filter((message) => message._id !== messageId);
+    setMessages(updatedMessages);
+  }, [messages]);
 
   const username = session?.user?.username || '';
 

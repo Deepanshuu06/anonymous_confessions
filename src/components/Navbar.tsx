@@ -5,8 +5,11 @@ import Link from 'next/link';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
+
 const Navbar = () => {
   const { data: session } = useSession();
+
+
 
   const user: User = session?.user as User;
   return (
@@ -37,6 +40,7 @@ const Navbar = () => {
                 <Button className="bg-black text-white">Log In</Button>
               </Link>
             )}
+            
           </div>
         </div>
       </nav>
