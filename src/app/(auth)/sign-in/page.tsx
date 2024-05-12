@@ -76,6 +76,7 @@ const Page = () => {
                 <Input
                   placeholder="Email/Username"
                   {...field}
+                  autoFocus
                   className="border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </FormControl>
@@ -93,6 +94,7 @@ const Page = () => {
                 <Input
                   placeholder="Password"
                   {...field}
+                  autoFocus
                   type="password"
                   className="border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />

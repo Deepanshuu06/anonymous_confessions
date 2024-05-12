@@ -99,10 +99,11 @@ export default function SendMessage() {
             <label className="block">
               Send Anonymous Message to <span className='text-pink-600'>@{username}</span>
               <Textarea
+              autoFocus
                 value={messageContent}
                 onChange={(e) => setMessageContent(e.target.value)}
                 placeholder="Write your anonymous message here"
-                className="resize-none font-bold pt-4"
+                className="resize-none font-bold pt-4  "
               />
             </label>
           </div>
