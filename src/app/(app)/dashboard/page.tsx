@@ -128,7 +128,7 @@ const Page = () => {
 
   const username = session?.user?.username || '';
 
-  const baseURL = `${window.location.protocol}//${window.location.host}`;
+  const baseURL = process.env.PROFILE_BASE_URL
   const profileUrl = `${baseURL}/u/${username}`;
 
   return (
