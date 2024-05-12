@@ -73,7 +73,7 @@ const Page = () => {
                 <FormItem>
                   <FormLabel>Verification Code</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the code" {...field} />
+                    <Input placeholder="Enter the code" {...field} style={{ fontSize: '16px' }} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

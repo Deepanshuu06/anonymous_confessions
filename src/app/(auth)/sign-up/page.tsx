@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -69,6 +68,8 @@ const Page = () => {
         title: 'success',
         description: response.data.message,
       });
+      console.log(username);
+      
       router.replace(`/verify/${username}`);
       setIsSubmitting(false);
     } catch (error) {
@@ -107,6 +108,10 @@ const Page = () => {
                       {...field}
                       style={{ fontSize: '18px' }}
                       className="border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      onChange={(e) => {
+                        field.onChange(e);
+                        setUsername(e.target.value);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
