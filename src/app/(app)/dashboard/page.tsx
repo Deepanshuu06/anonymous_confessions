@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import MessageCard from '@/components/messageCard';
+import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
 
 
 const Page = () => {
@@ -132,6 +133,12 @@ const Page = () => {
   const baseURL = 'https://www.starbionet.com/'
   console.log(baseURL);
   const profileUrl = `${baseURL}/u/${username}`;
+
+
+const router = useRouter();
+  if (!session) {
+    router.replace('/');
+  }
   
 
   return (
@@ -145,9 +152,9 @@ const Page = () => {
             type="text"
             value={profileUrl} // Placeholder value
             disabled
-            className="input input-bordered w-full p-2 mr-2"
+            className="input input-bordered w-full p-2 mr-2 text-pink-700"
           />
-          <Button onClick={handleCopyLink}>Copy</Button> {/* Placeholder onClick function */}
+          <Button onClick={handleCopyLink} className='bg-pink-500 hover:bg-pink-700 '>Copy</Button> {/* Placeholder onClick function */}
         </div>
       </div>
 

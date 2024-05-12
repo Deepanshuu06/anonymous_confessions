@@ -36,7 +36,6 @@ const Page = () => {
         code: data.code,
       });
 
-      console.log(response);
       
       toast({
         title: 'Success',
@@ -81,7 +80,7 @@ const Page = () => {
               )}
             />
             <div className="text-center">
-              <Button type="submit">Verify</Button>
+              <Button type="submit" className='bg-violet-500'>Verify</Button>
             </div>
           </form>
         </Form>

@@ -83,12 +83,12 @@ export default function SendMessage() {
 
   return (
     <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
-      <h1 className="text-4xl font-bold mb-6 text-center">Public Profile Link</h1>
+      <h1 className="text-4xl font-bold mb-6 text-center text-pink-600">Public Profile Link</h1>
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="space-y-6">
           <div className="space-y-2">
             <label className="block">
-              Send Anonymous Message to @{username}
+              Send Anonymous Message to <span className='text-pink-600'>@{username}</span>
               <Textarea
                 value={messageContent}
                 onChange={(e) => setMessageContent(e.target.value)}
@@ -98,7 +98,7 @@ export default function SendMessage() {
             </label>
           </div>
           <div className="flex justify-center">
-            <Button type="submit" disabled={isLoading || !messageContent}>
+            <Button type="submit" disabled={isLoading || !messageContent} className='bg-pink-500 hover:bg-pink-800'>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -107,6 +107,7 @@ export default function SendMessage() {
               ) : (
                 'Send It'
               )}
+
             </Button>
           </div>
         </div>
@@ -114,14 +115,14 @@ export default function SendMessage() {
 
       <div className="space-y-4 my-8">
         <div className="space-y-2">
-          <Button onClick={fetchSuggestedMessages} className="my-4" disabled={isSuggestLoading}>
+          <Button onClick={fetchSuggestedMessages} className="my-4 bg-pink-500" disabled={isSuggestLoading}>
             Suggest Messages
           </Button>
           <p>Click on any message below to select it.</p>
         </div>
         <Card>
           <CardHeader>
-            <h3 className="text-xl font-semibold">Messages</h3>
+            <h3 className="text-xl font-semibold text-pink-600">Messages</h3>
           </CardHeader>
           <CardContent className="flex flex-col space-y-4">
             {error ? (
@@ -131,8 +132,9 @@ export default function SendMessage() {
                 <Button
                   key={index}
                   variant="outline"
-                  className="mb-2"
+                  className="mb-2 text-pink-500"
                   onClick={() => handleMessageClick(message)}
+                  
                 >
                   {message}
                 </Button>
@@ -145,7 +147,7 @@ export default function SendMessage() {
       <div className="text-center">
         <div className="mb-4">Get Your Message Board</div>
         <Link href={'/sign-up'}>
-          <Button>Create Your Account</Button>
+          <Button className='bg-pink-500'>Create Your Account</Button>
         </Link>
       </div>
     </div>
