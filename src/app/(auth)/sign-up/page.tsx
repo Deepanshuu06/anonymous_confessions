@@ -105,7 +105,7 @@ const Page = () => {
                     <Input
                       placeholder="Username"
                       {...field}
-                      autoFocus
+                      style={{ fontSize: '18px' }}
                       className="border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </FormControl>
@@ -124,7 +124,7 @@ const Page = () => {
                     <Input
                       placeholder="Your name"
                       {...field}
-                      autoFocus
+                      style={{ fontSize: '18px' }}
                       className="border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </FormControl>
@@ -142,7 +142,7 @@ const Page = () => {
                     <Input
                       placeholder="Email"
                       {...field}
-                      autoFocus
+                      style={{ fontSize: '18px' }}
                       className="border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </FormControl>
@@ -160,7 +160,7 @@ const Page = () => {
                     <Input
                       placeholder="Password"
                       {...field}
-                      autoFocus
+                      style={{ fontSize: '18px' }}
                       type="password"
                       className="border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />

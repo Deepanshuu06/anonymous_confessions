@@ -176,10 +176,10 @@ const router = useRouter();
       {isShareMenuOpen && (
         <div className='absolute z-50 w-[50%] lg:w-[20%] bg-red-50 rounded-2xl shadow-md p-4 right-9 lg:right-40 flex items-center flex-col'>
           <WhatsappShareButton url={`${profileUrl} Hey, send me an anonymous message or ask me anything!`}>
-            <Button className='w-full bg-green-500 mb-2 w-52'>Share on Whatsapp</Button>  
+            <Button className='w-full bg-green-500 mb-2 w-40'>Share on Whatsapp</Button>  
           </WhatsappShareButton>
           <TwitterShareButton url={`${profileUrl} Hey, send me an anonymous message or ask me anything!`}>
-            <Button className='w-full bg-blue-200 w-52'>Share on Twitter</Button>
+            <Button className='w-full bg-blue-200 w-40'>Share on Twitter</Button>
           </TwitterShareButton>
         </div>
       )}
