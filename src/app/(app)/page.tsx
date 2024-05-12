@@ -9,7 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
+import Autoplay from 'embla-carousel-autoplay'
 import messages from '@/message.json';
 import { User } from '@/model/usermodel';
 import { useSession } from 'next-auth/react';
@@ -45,7 +45,10 @@ export default function Home() {
         <p className="text-lg text-gray-600 mt-10 md:mt-8">Welcome to our platform. Explore and connect!</p>
       </section>
       <section>
-        <Carousel className="w-full max-w-screen-xl mx-auto">
+        <Carousel 
+        className="w-full max-w-screen-xl mx-auto"
+        plugins={[Autoplay({ delay: 3000 })]}  
+        >
           <CarouselContent>
             {carouselMessages.map((message, index) => (
               <CarouselItem key={index}>

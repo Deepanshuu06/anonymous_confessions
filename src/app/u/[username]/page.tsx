@@ -11,6 +11,8 @@ import { ApiResponse } from '@/types/ApiResponse';
 import Link from 'next/link';
 import { messageSchema } from '@/Schemas/messageSchema';
 import { useParams } from 'next/navigation'; // Importing useParams from next/router
+import messages from '@/anonymousMessage.json';
+import { getRandomMessage } from '@/utils/getRandomMessage';
 
 type Params = {
   username: string;
@@ -81,6 +83,13 @@ export default function SendMessage() {
     }
   };
 
+
+  const handleSuggestMessage = ()=>{
+    const randomMessage: string = getRandomMessage(messages);
+    handleMessageClick(randomMessage)
+
+  }
+
   return (
     <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
       <h1 className="text-4xl font-bold mb-6 text-center text-pink-600">Public Profile Link</h1>
@@ -93,7 +102,7 @@ export default function SendMessage() {
                 value={messageContent}
                 onChange={(e) => setMessageContent(e.target.value)}
                 placeholder="Write your anonymous message here"
-                className="resize-none"
+                className="resize-none font-bold pt-4"
               />
             </label>
           </div>
@@ -115,7 +124,7 @@ export default function SendMessage() {
 
       <div className="space-y-4 my-8">
         <div className="space-y-2">
-          <Button onClick={fetchSuggestedMessages} className="my-4 bg-pink-500" disabled={isSuggestLoading}>
+          <Button onClick={handleSuggestMessage} className="my-4 bg-pink-500" disabled={isSuggestLoading}>
             Suggest Messages
           </Button>
           <p>Click on any message below to select it.</p>

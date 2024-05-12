@@ -1,4 +1,5 @@
 'use client';
+
 import { acceptMessageSchema } from '@/Schemas/acceptMessageSchema';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
@@ -14,12 +15,17 @@ import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import MessageCard from '@/components/messageCard';
 import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
+import {TwitterShareButton, WhatsappShareButton} from 'react-share'
+import { WhatsappIcon,FacebookIcon } from "react-share"; // Import react-share icons
 
 
 const Page = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
+  const [isShareMenuOpen , setIsShareMenuOpen] = useState(false)
+
+
   const { toast } = useToast();
   const { data: session } = useSession();
   const form = useForm({
@@ -140,24 +146,43 @@ const router = useRouter();
     router.replace('/');
   }
   
+  const handleShareMenu = ()=>{
+    setIsShareMenuOpen(!isShareMenuOpen)
+    
+  }
+
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-      <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
-
-      <div className="mb-4">
+    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-red-100 rounded-2xl max-w-6xl overflow-y-auto">
+      <div className="mb-4 ">
+      <h1 className="text-4xl font-bold mb-4">Dashboard</h1>
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
-        <div className="flex items-center">
+        <div className="flex items-center w-full">
           <input
             type="text"
             value={profileUrl} // Placeholder value
             disabled
             className="input input-bordered w-full p-2 mr-2 text-pink-700"
           />
-          <Button onClick={handleCopyLink} className='bg-pink-500 hover:bg-pink-700 '>Copy</Button> {/* Placeholder onClick function */}
+          <div className='flex gap-4'>
+
+          
+          <Button onClick={handleCopyLink} className='bg-pink-500 hover:bg-pink-700'>Copy</Button> {/* Placeholder onClick function */}
+          <Button onClick={handleShareMenu} className='bg-pink-500 hover:bg-pink-700 '>Share</Button> {/* Placeholder onClick function */}
+          </div>
         </div>
       </div>
 
+      {isShareMenuOpen && (
+        <div className='absolute z-50 w-[50%] lg:w-[20%] bg-red-50 rounded-2xl shadow-md p-4 right-9 lg:right-40 flex items-center flex-col'>
+          <WhatsappShareButton url={`${profileUrl} Hey, send me an anonymous message or ask me anything!`}>
+            <Button className='w-full bg-green-500 mb-2 w-52'>Share on Whatsapp</Button>  
+          </WhatsappShareButton>
+          <TwitterShareButton url={`${profileUrl} Hey, send me an anonymous message or ask me anything!`}>
+            <Button className='w-full bg-blue-200 w-52'>Share on Twitter</Button>
+          </TwitterShareButton>
+        </div>
+      )}
       <div className="mb-4">
         <Switch
           {...register('acceptMessages')}

@@ -56,13 +56,17 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
   };
 
   return (
-    <Card>
+    <Card className='pt-10'>
+       <CardContent className="overflow-auto text-md text-center">
+        {message.content}
+      </CardContent>
       <CardHeader>
-        <CardTitle>{message.content}</CardTitle>
+        {/* <CardTitle>{message.content}</CardTitle>  */}
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive">
-              <X className="w-5 h-5" />
+            <Button variant="destructive"
+            >
+             Delete Message
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -79,9 +83,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
           </AlertDialogContent>
         </AlertDialog>
       </CardHeader>
-      <CardContent>
-
-      </CardContent>
+     
     </Card>
   );
 };
