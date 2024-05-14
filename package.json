@@ -38,6 +38,7 @@
     "react-email": "^1.10.1",
     "react-hook-form": "^7.51.4",
     "react-share": "^5.1.0",
+    "react-simple-typewriter": "^5.0.1",
     "react-slick": "^0.30.2",
     "resend": "^3.2.0",
     "tailwind-merge": "^2.3.0",

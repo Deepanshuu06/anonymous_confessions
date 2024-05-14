@@ -37,6 +37,8 @@ const Page = () => {
   const form = useForm<z.infer<typeof verifySchema>>({
     resolver: zodResolver(verifySchema),
   });
+  
+ 
 
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
     try {
@@ -51,19 +53,20 @@ const Page = () => {
         title: 'Success',
         description: response.data.message,
       });
-
       router.replace('/sign-in');
 
     } catch (error) {
       console.error('Error in verifying code:', error);
       const axiosError = error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data.message || 'Verification failed.';
+      form.setValue('code', '');
       toast({
         title: 'Verification Failed',
         description: errorMessage,
         variant: 'destructive',
       });
     }
+    
   };
 
   return (
@@ -83,7 +86,7 @@ const Page = () => {
               <FormLabel>One-Time Password</FormLabel>
               <FormControl>
                 <InputOTP maxLength={7} {...field}>
-                  <InputOTPGroup >
+                  <InputOTPGroup  >
                     <InputOTPSlot index={0} />
                     <InputOTPSlot index={1} />
                     <InputOTPSlot index={2} />

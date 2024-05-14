@@ -9,7 +9,7 @@ export const usernameValidation = z
 export const emailValidation = z.string().email({ message: "Invalid email address" }); // Ensure email format is valid
 
 export const passwordValidation = z.string().min(8, "Password should contain minimum 8 characters.").max(16 ,"Password should not be more than 16 characters.");
-export const nameValidation = z.string().min(4, "name should contain minimum 8 characters.").max(12 ,"name should not be more than 12 characters.");
+export const nameValidation = z.string().min(4, "Name should contain minimum 8 characters.").max(26 ,"name should not be more than 26 characters.");
 
 export const signUpSchema = z.object({
     username: usernameValidation,

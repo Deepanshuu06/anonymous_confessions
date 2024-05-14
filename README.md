@@ -1,40 +1,45 @@
-# Anonymous Message App
+# Anonymous Confessions
 
-Anonymous Message App allows users to generate a public profile link and share it with others. People can send anonymous messages to the user via this link.
-
-![App Screenshot](/path/to/screenshot.png)
+Welcome to Anonymous Confessions, a web application where users can generate public links to share on social media or with others to send anonymous messages. With this application, users can receive messages anonymously and view them without knowing who sent them.
 
 ## Features
 
-- Users can generate a public profile link.
-- Others can send anonymous messages to the user through the link.
-- Users can view and manage their received messages.
-- Users can upload images to personalize their profile.
-
-## Demo
-
-Check out the live demo [here](https://your-app-demo-url.com).
-
-## Technologies Used
-
-- Framework: Next.js
-- Backend: Node.js, Express.js
-- Database: MongoDB
-- Authentication: JWT (JSON Web Tokens)
-- File Upload: Multer
-- Deployment: Vercel
+- **Anonymous Messaging**: Users can send messages anonymously without revealing their identity.
+- **Public Links**: Generate public links to share on social media or with others to receive anonymous messages.
+- **Authentication**: User authentication is implemented to ensure security and privacy.
+- **Next.js**: Built using Next.js, a React framework for server-rendered applications.
 
 ## Getting Started
 
-To get a local copy up and running follow these simple steps:
+To get started with Anonymous Confessions, follow these steps:
 
-### Prerequisites
+1. Visit [Anonymous Confessions](https://www.starbionet.com/).
+2. Sign up for an account or log in if you already have one.
+3. Generate a public link to share with others.
+4. Share the link on social media or with friends to receive anonymous messages.
 
-- Node.js installed on your machine
-- MongoDB installed and running locally or use a cloud MongoDB service like MongoDB Atlas
+## Screenshots
 
-### Installation
+![Home Page](/public/screenshots/homepage.png)
+![Public Page](/public/screenshots/publiclinkpage.png)
+![Received Messages Dashboard](/public/screenshots/dashboard.png)
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/anonymous-message-app.git
+## Technologies Used
+
+- Next.js
+- React
+- Authentication (e.g., JWT)
+- HTML
+- CSS
+- Tailwind
+- ShadCn
+
+
+## Deployment
+
+This application is deployed on [Starbionet](https://www.starbionet.com/).
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions or improvements, feel free to open an issue or create a pull request.
+

@@ -13,6 +13,7 @@ import { messageSchema } from '@/Schemas/messageSchema';
 import { useParams } from 'next/navigation'; // Importing useParams from next/router
 import messages from '@/anonymousMessage.json';
 import { getRandomMessage } from '@/utils/getRandomMessage';
+import { Typewriter } from 'react-simple-typewriter';
 
 type Params = {
   username: string;
@@ -92,12 +93,28 @@ export default function SendMessage() {
 
   return (
     <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
-      <h1 className="text-4xl font-bold mb-6 text-center text-pink-600">Public Profile Link</h1>
+       <h1 className='text-2xl lg:text-4xl font-bold text-center mb-6'>
+        {/* Life is simple {' '} */}
+        <span className='text-2xl lg:text-4xl text-pink-600 font-bold'>
+          {/* Style will be inherited from the parent element */}
+          <Typewriter
+           words={[`Hello User`, 'Share Anon Message', 'Confession' , 'To' , `@ ${username}` ]}
+            loop={true}
+            cursor
+            cursorStyle='|'
+            typeSpeed={90}
+            deleteSpeed={60}
+            delaySpeed={1000}
+
+          />
+        </span>
+      </h1>
+
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="space-y-6">
           <div className="space-y-2">
             <label className="block">
-              Send Anonymous Message to <span className='text-pink-600'>@{username}</span>
+             <h2> Send Anonymous Message to <span className='text-pink-600'>@{username}</span></h2>
               <Textarea
                 value={messageContent}
                 onChange={(e) => setMessageContent(e.target.value)}

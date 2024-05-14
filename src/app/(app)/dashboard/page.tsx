@@ -17,6 +17,8 @@ import MessageCard from '@/components/messageCard';
 import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
 import {TwitterShareButton, WhatsappShareButton} from 'react-share'
 import { WhatsappIcon,FacebookIcon } from "react-share"; // Import react-share icons
+import { Typewriter } from 'react-simple-typewriter'
+
 
 
 const Page = () => {
@@ -152,8 +154,30 @@ const router = useRouter();
   }
 
 
+  
+
+
   return (
+
+    <div className='my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded-2xl max-w-6xl overflow-y-auto'>
+      <h1 className='text-2xl lg:text-4xl font-bold text-center'>
+        {/* Life is simple {' '} */}
+        <span className='text-2xl lg:text-4xl text-red-400 font-bold'>
+          {/* Style will be inherited from the parent element */}
+          <Typewriter
+           words={[`Hello ${username}`, 'Share Profile Link', 'Receive Anon Messages', 'From Your' , 'Friends']}
+            loop={true}
+            cursor
+            cursorStyle='|'
+            typeSpeed={50}
+            deleteSpeed={30}
+            delaySpeed={1000}
+
+          />
+        </span>
+      </h1>
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-red-100 rounded-2xl max-w-6xl overflow-y-auto">
+  
       <div className="mb-4 ">
       <h1 className="text-4xl font-bold mb-4">Dashboard</h1>
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
@@ -221,6 +245,7 @@ const router = useRouter();
           <p>No messages to display.</p>
         )}
       </div>
+    </div>
     </div>
   );
 };
