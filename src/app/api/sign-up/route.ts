@@ -50,9 +50,6 @@ export async function POST(request: NextRequest) {
       });
     }
 
-
-
-
     const existingUserByEmail = await UserModel.findOne({ email });
 
     if (existingUserByEmail) {
@@ -67,18 +64,6 @@ export async function POST(request: NextRequest) {
           },
         );
       }
-      if (existingUserNotVerifiedEmail) {
-        return Response.json(
-          {
-            success: false,
-            message: 'User with this email is already registered but not verified',
-          },
-          {
-            status: 400,
-          },
-        );
-      }
-
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       const verifyUserOTP = Math.floor(1000000 + Math.random() * 9000000).toString();
