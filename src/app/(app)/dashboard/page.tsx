@@ -147,25 +147,20 @@ const router = useRouter();
   if (!session) {
     router.replace('/');
   }
-  
+
   const handleShareMenu = ()=>{
     setIsShareMenuOpen(!isShareMenuOpen)
     
   }
-
-
-  
-
-
   return (
 
-    <div className='my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded-2xl max-w-6xl overflow-y-auto'>
+    <div className='my-8 mx-auto md:mx-6 lg:mx-auto p-6 rounded-2xl max-w-6xl overflow-y-auto'>
       <h1 className='text-2xl lg:text-4xl font-bold text-center'>
         {/* Life is simple {' '} */}
-        <span className='text-2xl lg:text-4xl text-red-400 font-bold'>
+        <span className='text-xl lg:text-4xl text-red-400 font-bold overflow-hidden'>
           {/* Style will be inherited from the parent element */}
           <Typewriter
-           words={[`Hello ${username}`, 'Share Profile Link', 'Receive Anon Messages', 'From Your' , 'Friends']}
+           words={[`Hello @${username}`, 'Share Profile Link', 'Receive Anon Messages', 'From Your' , 'Friends']}
             loop={true}
             cursor
             cursorStyle='|'

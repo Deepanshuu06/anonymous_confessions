@@ -72,12 +72,12 @@ const Page = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex items-center justify-center">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-md w-full flex flex-col items-center text-center p-10  ">
-        <div className="p-6 text-center">
+        <div className=" text-center">
           <h1 className="text-4xl font-bold mb-4">Verify Account</h1>
         </div>
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-       <div className='flex items-center'>
+       <div className='flex items-center flex-col'>
        <FormField
           control={form.control}
           name="code"
