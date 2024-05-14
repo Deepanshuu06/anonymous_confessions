@@ -12,6 +12,18 @@ export async function POST(request: NextRequest) {
       username,
       isVerified: true,
     });
+    const existingUserNotVerifiedUsername = await UserModel.findOne({
+      username,
+      isVerified: false,
+    });
+    const existingUserVerifiedEmail = await UserModel.findOne({
+      email,
+      isVerified: true,
+    });
+    const existingUserNotVerifiedEmail = await UserModel.findOne({
+      email,
+      isVerified: false,
+    });
 
     if (existingUserVerifiedUsername) {
       return Response.json(
@@ -25,10 +37,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if(existingUserNotVerifiedUsername){
+      const response = await UserModel.deleteOne({
+        username,
+        isVerified: false,
+      });
+    }
+    if(existingUserNotVerifiedEmail){
+      const response = await UserModel.deleteOne({
+        email,
+        isVerified: false,
+      });
+    }
+
+
+
+
     const existingUserByEmail = await UserModel.findOne({ email });
 
     if (existingUserByEmail) {
-      if (existingUserByEmail.isVerified) {
+      if (existingUserVerifiedEmail) {
         return Response.json(
           {
             success: false,
@@ -39,6 +67,18 @@ export async function POST(request: NextRequest) {
           },
         );
       }
+      if (existingUserNotVerifiedEmail) {
+        return Response.json(
+          {
+            success: false,
+            message: 'User with this email is already registered but not verified',
+          },
+          {
+            status: 400,
+          },
+        );
+      }
+
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       const verifyUserOTP = Math.floor(1000000 + Math.random() * 9000000).toString();
@@ -56,9 +96,7 @@ export async function POST(request: NextRequest) {
         isAcceptingMessage: true,
         messages: [],
       });
-
       await newUser.save();
-
       // Send verification email
       const emailResponse = await sendVerificationEmail(email, username, verifyUserOTP);
 

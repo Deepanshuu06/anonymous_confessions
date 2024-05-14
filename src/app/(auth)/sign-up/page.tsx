@@ -68,8 +68,6 @@ const Page = () => {
         title: 'success',
         description: response.data.message,
       });
-      console.log(username);
-      
       router.replace(`/verify/${username}`);
       setIsSubmitting(false);
     } catch (error) {
@@ -115,6 +113,11 @@ const Page = () => {
                     />
                   </FormControl>
                   <FormMessage />
+                  {usernameMessage == 'Username is available' ? (
+                    <p className='text-green-500'>{usernameMessage}</p>
+                  ) : (
+                    <p className='text-red-600'>{usernameMessage}</p>
+                  )}
                 </FormItem>
               )}
             />
