@@ -138,9 +138,9 @@ const Page = () => {
   const username = session?.user?.username || '';
 
   
-  const baseURL = 'https://www.starbionet.com/'
-  console.log(baseURL);
-  const profileUrl = `${baseURL}/u/${username}`;
+
+  // console.log(baseURL);
+  const profileUrl = `${process.env.PROFILE_BASE_URL}/u/${username}`;
 
 
 const router = useRouter();
