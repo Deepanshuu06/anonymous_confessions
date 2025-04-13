@@ -137,12 +137,7 @@ const Page = () => {
 
   const username = session?.user?.username || '';
 
-  
-
-
   const profileUrl = `${process.env.NEXT_PUBLIC_PROFILE_BASE_URL}/u/${username}`;
-
-
 
 const router = useRouter();
   if (!session) {

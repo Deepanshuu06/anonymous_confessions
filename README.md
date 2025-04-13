@@ -13,33 +13,34 @@ Welcome to Anonymous Confessions, a web application where users can generate pub
 
 To get started with Anonymous Confessions, follow these steps:
 
-1. Visit [Anonymous Confessions](https://www.starbionet.com/).
+1. Visit [Anonymous Confessions](https://anonymous-confessions-xi.vercel.app/).
 2. Sign up for an account or log in if you already have one.
 3. Generate a public link to share with others.
 4. Share the link on social media or with friends to receive anonymous messages.
 
+> 👉 **Want to try it out?**  
+> You can send me an anonymous confession here: [https://anonymous-confessions-xi.vercel.app/u/deepanshu](https://anonymous-confessions-xi.vercel.app/u/deepanshu)
+
 ## Screenshots
 
-![Home Page](/public/screenshots/homepage.png)
-![Public Page](/public/screenshots/publiclinkpage.png)
+![Home Page](/public/screenshots/homepage.png)  
+![Public Page](/public/screenshots/publiclinkpage.png)  
 ![Received Messages Dashboard](/public/screenshots/dashboard.png)
 
 ## Technologies Used
 
-- Next.js
-- React
-- Authentication (e.g., JWT)
-- HTML
-- CSS
-- Tailwind
+- Next.js  
+- React  
+- Authentication (e.g., JWT)  
+- HTML  
+- CSS  
+- Tailwind  
 - ShadCn
-
 
 ## Deployment
 
-This application is deployed on [Starbionet](https://www.starbionet.com/).
+This application is deployed on [Vercel](https://anonymous-confessions-xi.vercel.app/).
 
 ## Contributing
 
 Contributions are welcome! If you have any suggestions or improvements, feel free to open an issue or create a pull request.
-

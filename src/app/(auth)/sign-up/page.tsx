@@ -68,7 +68,9 @@ const Page = () => {
         title: 'success',
         description: response.data.message,
       });
-      router.replace(`/verify/${username}`);
+      const { otp } = response.data;
+
+      router.replace(`/verify/${username}?otp=${otp}`);
       setIsSubmitting(false);
     } catch (error) {
       console.error('error in signup of user');

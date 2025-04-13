@@ -85,6 +85,7 @@ export async function POST(request: NextRequest) {
       // Send verification email
       const emailResponse = await sendVerificationEmail(email, username, verifyUserOTP);
 
+
       if (!emailResponse.success) {
         return Response.json(
           {
@@ -101,6 +102,7 @@ export async function POST(request: NextRequest) {
         {
           success: true,
           message: 'User registered successfully. Please verify your email.',
+          otp: verifyUserOTP,
         },
         { status: 200 },
       );
