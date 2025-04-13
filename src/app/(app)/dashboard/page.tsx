@@ -139,8 +139,9 @@ const Page = () => {
 
   
 
-  // console.log(baseURL);
-  const profileUrl = `${process.env.PROFILE_BASE_URL}/u/${username}`;
+
+  const profileUrl = `${process.env.NEXT_PUBLIC_PROFILE_BASE_URL}/u/${username}`;
+
 
 
 const router = useRouter();
@@ -231,7 +232,7 @@ const router = useRouter();
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message._id}
+              key={message._id as string}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />

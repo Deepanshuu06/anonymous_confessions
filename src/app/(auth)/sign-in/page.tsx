@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button';
 
 import { signInSchema } from '@/Schemas/signInSchema';
 import { signIn } from 'next-auth/react';
+import { log } from 'console';
 
 const Page = () => {
   const { toast } = useToast();
@@ -54,7 +55,12 @@ const Page = () => {
     if (result?.url) {
       router.replace('/dashboard');
     }
+
   };
+
+
+
+  
 
   return ( <div className="bg-gray-50 min-h-screen flex items-center justify-center">
   <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-md w-full">
@@ -63,6 +69,7 @@ const Page = () => {
       <p className="text-gray-600 mb-4">
         Share your thoughts anonymously. Sign up to start confessing.
       </p>
+
     </div>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 space-y-8">

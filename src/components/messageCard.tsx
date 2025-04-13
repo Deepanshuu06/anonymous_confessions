@@ -44,7 +44,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
         title: response.data.message,
       });
 
-      onMessageDelete(message._id);
+      onMessageDelete(message._id as string);
     } catch (error) {
       console.error('Error deleting message:', error);
       toast({
