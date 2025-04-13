@@ -1,5 +1,4 @@
 import dbConnect from '@/lib/dbConnect';
-
 import { z } from 'zod';
 import { usernameValidation } from '@/Schemas/signUpSchema';
 import { UserModel } from '@/model/usermodel';
@@ -9,18 +8,18 @@ const UsernameQuerySchema = z.object({
 });
 
 export async function GET(request: Request) {
-  
-    if (request.method !== 'GET') {
-      return Response.json(
-        {
-          success: false,
-          message: 'Method Not Allowed',
-        },
-        {
-          status: 405,
-        },
-      );
-    }
+  // This check is optional since this file is only triggered on GET requests
+  if (request.method !== 'GET') {
+    return Response.json(
+      {
+        success: false,
+        message: 'Method Not Allowed',
+      },
+      {
+        status: 405,
+      }
+    );
+  }
 
   await dbConnect();
 
@@ -29,26 +28,33 @@ export async function GET(request: Request) {
     const queryParam = {
       username: searchParams.get('username'),
     };
-    //validate with zod
+
+    // Validate with Zod
     const result = UsernameQuerySchema.safeParse(queryParam);
-    console.log(result);
+
     if (!result.success) {
       const usernameErrors = result.error.format().username?._errors || [];
       return Response.json(
         {
           success: false,
           message:
-            usernameErrors?.length > 0 ? usernameErrors.join(', ') : 'Invalid Query Parameters',
+            usernameErrors.length > 0
+              ? usernameErrors.join(', ')
+              : 'Invalid Query Parameters',
         },
         {
           status: 400,
-        },
+        }
       );
     }
 
     const { username } = result.data;
 
-    const existingVerifiedUser = await UserModel.findOne({ username, isVerified: true });
+    const existingVerifiedUser = await UserModel.findOne({
+      username,
+      isVerified: true,
+    });
+
     if (existingVerifiedUser) {
       return Response.json(
         {
@@ -57,7 +63,7 @@ export async function GET(request: Request) {
         },
         {
           status: 400,
-        },
+        }
       );
     }
 
@@ -67,8 +73,8 @@ export async function GET(request: Request) {
         message: 'Username is available',
       },
       {
-        status: 400,
-      },
+        status: 200,
+      }
     );
   } catch (error) {
     console.error('Error checking username', error);
@@ -79,7 +85,7 @@ export async function GET(request: Request) {
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

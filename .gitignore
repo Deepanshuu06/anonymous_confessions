@@ -1,39 +1,74 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/.pnp
+# ----------------------------------
+# 🚀 Dependencies
+# ----------------------------------
+node_modules/
+.pnp/
 .pnp.js
 .yarn/install-state.gz
 
-# testing
-/coverage
+# If you're using npm only:
+# yarn.lock
 
-# next.js
-/.next/
-/out/
+# If you're using Yarn only:
+# package-lock.json
 
-# production
-/build
+# ----------------------------------
+# 🧪 Testing
+# ----------------------------------
+coverage/
 
-# misc
+# ----------------------------------
+# ⚡ Next.js
+# ----------------------------------
+.next/
+out/
+
+# ----------------------------------
+# 🚀 Production Builds
+# ----------------------------------
+build/
+
+# ----------------------------------
+# 🧹 Miscellaneous
+# ----------------------------------
 .DS_Store
 *.pem
 
-# debug
+# Optional: Ignore local editor/project files
+*.log
+.vscode/
+.idea/
+
+# ----------------------------------
+# 🐛 Debug / Logs
+# ----------------------------------
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
+# ----------------------------------
+# 🔐 Local Environment Variables
+# ----------------------------------
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# vercel
-.vercel
+# ----------------------------------
+# 🌍 Vercel
+# ----------------------------------
+.vercel/
 
-# typescript
+# ----------------------------------
+# 🧾 TypeScript
+# ----------------------------------
 *.tsbuildinfo
 next-env.d.ts
-.env
-.env
+
+# ----------------------------------
+# ✅ ESLint Cache (optional)
+# ----------------------------------
+.eslintcache
